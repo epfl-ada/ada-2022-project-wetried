@@ -129,6 +129,3 @@ A list of internal milestones up until project Milestone 3.
   </tr>
 </tbody>
 </table>
-
-
-## Questions for TAs
