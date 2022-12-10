@@ -329,7 +329,6 @@
       polygonTemplate.setStateOnChildren = true;
       polygonTemplate.tooltipPosition = "fixed";
     
-      //polygonTemplate.events.on("hit", handleCountryHit);
       polygonTemplate.events.on("over", handleCountryOver);
       polygonTemplate.events.on("out", handleCountryOut);
     
@@ -381,7 +380,6 @@
     
       imageTemplate.events.on("over", handleImageOver);
       imageTemplate.events.on("out", handleImageOut);
-      imageTemplate.events.on("hit", handleImageHit);
     
       // this is needed for the tooltip to point to the top of the circle instead of the middle
       imageTemplate.adapter.add("tooltipY", function(tooltipY, target) {
@@ -1097,58 +1095,6 @@
         }
       }
     
-      // select a country
-      function selectCountry(mapPolygon) {
-        resetHover();
-        polygonSeries.hideTooltip();
-    
-        // if the same country is clicked show world
-        if (currentPolygon == mapPolygon) {
-          currentPolygon.isActive = false;
-          currentPolygon = undefined;
-          showWorld();
-          return;
-        }
-        // save current polygon
-        currentPolygon = mapPolygon;
-        var countryIndex = countryIndexMap[mapPolygon.dataItem.id];
-        currentCountry = mapPolygon.dataItem.dataContext.name;
-    
-        // make others inactive
-        polygonSeries.mapPolygons.each(function(polygon) {
-          polygon.isActive = false;
-        })
-    
-        // clear timeout if there is one
-        if (countryDataTimeout) {
-          clearTimeout(countryDataTimeout);
-        }
-        // we delay change of data for better performance (so that data is not changed whil zooming)
-        countryDataTimeout = setTimeout(function() {
-          setCountryData(countryIndex);
-        }, 1000); // you can adjust number, 1000 is one second
-    
-        updateTotals(currentIndex);
-        updateCountryName();
-    
-        mapPolygon.isActive = true;
-        // meaning it's globe
-        if (mapGlobeSwitch.isActive) {
-          // animate deltas (results the map to be rotated to the selected country)
-          if (mapChart.zoomLevel != 1) {
-            mapChart.goHome();
-            rotateAndZoom(mapPolygon);
-          }
-          else {
-            rotateAndZoom(mapPolygon);
-          }
-        }
-        // if it's not a globe, simply zoom to the country
-        else {
-          mapChart.zoomToMapObject(mapPolygon, getZoomLevel(mapPolygon));
-        }
-      }
-    
       // change line chart data to the selected countries  
       function setCountryData(countryIndex) {
         // instead of setting whole data array, we modify current raw data so that a nice animation would happen
@@ -1373,14 +1319,6 @@
     
       function handleImageOut(event) {
         rollOutCountry(polygonSeries.getPolygonById(event.target.dataItem.id));
-      }
-    
-      function handleImageHit(event) {
-        selectCountry(polygonSeries.getPolygonById(event.target.dataItem.id));
-      }
-    
-      function handleCountryHit(event) {
-        selectCountry(event.target);
       }
     
       function handleCountryOver(event) {
