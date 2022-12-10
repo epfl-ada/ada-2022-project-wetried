@@ -845,16 +845,15 @@
         
         
         // create series
-        var activeSeries = addSeries("active", activeColor);
-        // active series is visible initially
-        activeSeries.tooltip.disabled = true;
-        activeSeries.hidden = false;
-        
         var confirmedSeries = addSeries("confirmed", confirmedColor);
+        // active series is visible initially
+        confirmedSeries.tooltip.disabled = true;
+        confirmedSeries.hidden = false;
+        
         var recoveredSeries = addSeries("recovered", recoveredColor);
         var deathsSeries = addSeries("deaths", deathsColor);
         
-        var series = { active: activeSeries, confirmed: confirmedSeries, recovered: recoveredSeries, deaths: deathsSeries };
+        var series = { confirmed: confirmedSeries, recovered: recoveredSeries, deaths: deathsSeries };
         // add series
         function addSeries(name, color) {
             var series = lineChart.series.push(new am4charts.LineSeries())
