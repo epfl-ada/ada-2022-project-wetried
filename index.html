@@ -55,6 +55,12 @@
 }
     </script>
 
+    <script src="https://code.highcharts.com/maps/highmaps.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/data.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/offline-exporting.js"></script>
+    <script src="https://code.highcharts.com/maps/modules/accessibility.js"></script>
+
     <meta name="generator" content="Jekyll 3.0.0" />
     <link rel="alternate" type="application/rss+xml" title="Has Covid taught humans a valuable climate lesson?" href="/ada-2022-project-wetried/feed.xml" />
 
@@ -87,30 +93,29 @@
 
     <div class="site-wrapper">
 
+        <header class="main-header "
+                style="background-image: url(/ada-2022-project-wetried/assets/images/cover1.jpg) ">
+            <nav class="main-nav overlay clearfix">
+                <a class="blog-logo" href="/ada-2022-project-wetried/"><img src="/ada-2022-project-wetried/assets/images/ghost.png" alt="Blog Logo" /></a>
+                
+                    <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
+                
+            </nav>
+            <div class="vertical">
+                <div class="main-header-content inner">
+                    <h1 class="page-title">Has Covid taught humans a valuable climate lesson?</h1>
+                    <h2 class="page-description">subtitle</h2>
+                </div>
+            </div>
+            <a class="scroll-down icon-arrow-left" href="#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
+        </header>
 
-<header class="main-header "
-        style="background-image: url(/ada-2022-project-wetried/assets/images/cover1.jpg) ">
-    <nav class="main-nav overlay clearfix">
-        <a class="blog-logo" href="/ada-2022-project-wetried/"><img src="/ada-2022-project-wetried/assets/images/ghost.png" alt="Blog Logo" /></a>
-        
-            <a class="menu-button icon-menu" href="#"><span class="word">Menu</span></a>
-        
-    </nav>
-    <div class="vertical">
-        <div class="main-header-content inner">
-            <h1 class="page-title">Has Covid taught humans a valuable climate lesson?</h1>
-            <h2 class="page-description">subtitle</h2>
-        </div>
-    </div>
-    <a class="scroll-down icon-arrow-left" href="#content" data-offset="-45"><span class="hidden">Scroll Down</span></a>
-</header>
+        <!-- The main content area on the homepage -->
+        <main id="content" class="content" role="main">
+            
+            <div id="container"></div>
 
-<!-- The main content area on the homepage -->
-<main id="content" class="content" role="main">
-
-    <li class="nav-about " role="presentation"><a href="/ada-2022-project-wetried/a-full-and-comprehensive-style-test.html">About</a></li>=
-
-</main>
+        </main>
 
 
         <!-- The tiny footer at the very bottom -->
@@ -119,6 +124,64 @@
           <section class="poweredby">Proudly created by the weTried team</section>
         </footer>
     </div>
+
+    <script>
+        (async () => {
+            const topology = await fetch(
+                'https://code.highcharts.com/mapdata/custom/world.topo.json'
+            ).then(response => response.json());
+
+            Highcharts.getJSON('https://cdn.jsdelivr.net/gh/highcharts/highcharts@v7.0.0/samples/data/world-population.json', function (data) {
+
+                Highcharts.mapChart('container', {
+                    chart: {
+                        borderWidth: 1,
+                        map: topology
+                    },
+
+                    title: {
+                        text: 'World population 2013 by country'
+                    },
+
+                    subtitle: {
+                        text: 'Demo of Highcharts map with bubbles'
+                    },
+
+                    accessibility: {
+                        description: 'We see how China and India by far are the countries with the largest population.'
+                    },
+
+                    legend: {
+                        enabled: false
+                    },
+
+                    mapNavigation: {
+                        enabled: true,
+                        buttonOptions: {
+                            verticalAlign: 'bottom'
+                        }
+                    },
+
+                    series: [{
+                        name: 'Countries',
+                        color: '#E0E0E0',
+                        enableMouseTracking: false
+                    }, {
+                        type: 'mapbubble',
+                        name: 'Population 2016',
+                        joinBy: ['iso-a3', 'code3'],
+                        data: data,
+                        minSize: 4,
+                        maxSize: '12%',
+                        tooltip: {
+                            pointFormat: '{point.properties.hc-a2}: {point.z} thousands'
+                        }
+                    }]
+                });
+            });
+        })();
+    </script>
+
     <!-- highlight.js -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
