@@ -197,7 +197,7 @@
         // make a map of country indexes for later use
         var countryIndexMap = {};
         
-        var list = covid_world_timeline[covid_world_timeline.length - 1].list;
+        var list = graph_data[graph_data.length - 1].list;
         for (var i = 0; i < list.length; i++) {
             var country = list[i]
             countryIndexMap[country.id] = i;
@@ -213,10 +213,10 @@
         // if index is not set, get last slide
         function getSlideData(index) {
             if (index == undefined) {
-            index = covid_world_timeline.length - 1;
+            index = graph_data.length - 1;
             }
         
-            var data = covid_world_timeline[index];
+            var data = graph_data[index];
         
             // augment with names
             //for (var i = 0; i < data.list.length; i++) {
@@ -524,7 +524,7 @@
         
         // what to do when slider is dragged
         slider.events.on("rangechanged", function(event) {
-            var index = Math.round((covid_world_timeline.length - 1) * slider.start);
+            var index = Math.round((graph_data.length - 1) * slider.start);
             updateMapData(getSlideData(index).list);
             updateTotals(index);
         })
@@ -1103,7 +1103,7 @@
         function setCountryData(countryIndex) {
             // instead of setting whole data array, we modify current raw data so that a nice animation would happen
             for (var i = 0; i < lineChart.data.length; i++) {
-            var di = covid_world_timeline[i].list;
+            var di = graph_data[i].list;
         
             var countryData = di[countryIndex];
             var dataContext = lineChart.data[i];
