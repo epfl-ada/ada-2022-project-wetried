@@ -906,12 +906,11 @@
         
         function createColumnSeries() {
             columnSeries = {}
-            columnSeries.active = addColumnSeries("active", activeColor);
-            columnSeries.active.events.on("validated", function() {
+            columnSeries.confirmed = addColumnSeries("confirmed", confirmedColor);
+            columnSeries.confirmed.events.on("validated", function() {
             updateColumnsFill();
             })
         
-            columnSeries.confirmed = addColumnSeries("confirmed", confirmedColor);
             columnSeries.recovered = addColumnSeries("recovered", recoveredColor);
             columnSeries.deaths = addColumnSeries("deaths", deathsColor);
         }
