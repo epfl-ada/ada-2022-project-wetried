@@ -151,7 +151,7 @@
     fetch('/ada-2022-project-wetried/assets/data/map_graph_data.json')
     .then(response => {
         return response.json();
-    }).then((json) => {
+    }).then((graph_data) => {
         am4core.ready(function() {
         
         var numberFormatter = new am4core.NumberFormatter();
@@ -175,8 +175,7 @@
         var currentCountry = "World";
         
         // last date of the data
-        var covid_total_timeline = json;
-        var lastDate = new Date(covid_total_timeline[covid_total_timeline.length - 1].date);
+        var lastDate = new Date(graph_data[graph_data.length - 1].date);
         var currentDate = lastDate;
         
         var currentPolygon;
@@ -205,8 +204,8 @@
         }
         
         // calculated active cases in world data (active = confirmed - recovered)
-        for (var i = 0; i < covid_total_timeline.length; i++) {
-            var di = covid_total_timeline[i];
+        for (var i = 0; i < graph_data.length; i++) {
+            var di = graph_data[i];
             di.active = di.confirmed - di.recovered;
         }
         
@@ -707,7 +706,7 @@
         lineChart.paddingTop = 3;
         
         // make a copy of data as we will be modifying it
-        lineChart.data = JSON.parse(JSON.stringify(covid_total_timeline));
+        lineChart.data = JSON.parse(JSON.stringify(graph_data));
         
         // date axis
         // https://www.amcharts.com/docs/v4/concepts/axes/date-axis/
@@ -1207,7 +1206,7 @@
         
             // update line chart data (again, modifying instead of setting new data for a nice animation)
             for (var i = 0; i < lineChart.data.length; i++) {
-            var di = covid_total_timeline[i];
+            var di = graph_data[i];
             var dataContext = lineChart.data[i];
         
             dataContext.recovered = di.recovered;
@@ -1232,7 +1231,7 @@
         // update total values in buttons
         function updateTotals(index) {
             if (!isNaN(index)) {
-            var di = covid_total_timeline[index];
+            var di = graph_data[index];
             var date = new Date(di.date);
             currentDate = date;
         
