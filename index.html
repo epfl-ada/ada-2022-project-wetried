@@ -149,8 +149,9 @@
     am4core.useTheme(am4themes_animated);
     // Themes end
     fetch('/ada-2022-project-wetried/assets/data/map_graph_data.json')
-    .then(response => {})
-    .then((json) => {
+    .then(response => {
+        return response.json();
+    }).then((json) => {
         am4core.ready(function() {
         
         var numberFormatter = new am4core.NumberFormatter();
