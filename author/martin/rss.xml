@@ -3,7 +3,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
    
-      <title>jekyllt.github.io/jasper/</title>
+      <title>jekyllt.github.io/ada-2022-project-wetried/</title>
    
    <link>http://localhost:4000</link>
    <description>A beautiful narrative written with the world's most elegant publishing platform. The story begins here.</description>
@@ -13,10 +13,10 @@
    
 	<item>
 	  <title>I Have a Dream</title>
-	  <link>/jasper//i-have-a-dream</link>
+	  <link>/ada-2022-project-wetried//i-have-a-dream</link>
 	  <author></author>
 	  <pubDate>1963-08-28T11:18:00+01:00</pubDate>
-	  <guid>/jasper//i-have-a-dream</guid>
+	  <guid>/ada-2022-project-wetried//i-have-a-dream</guid>
 	  <description><![CDATA[
 	     <p>I am happy to join with you today in what will go down in history as the greatest demonstration for freedom in the history of our nation.</p>
 
@@ -117,10 +117,10 @@
 
 	<item>
 	  <title>The Purpose of Education</title>
-	  <link>/jasper//the-purpose-of-education</link>
+	  <link>/ada-2022-project-wetried//the-purpose-of-education</link>
 	  <author></author>
 	  <pubDate>1948-12-12T11:18:00+01:00</pubDate>
-	  <guid>/jasper//the-purpose-of-education</guid>
+	  <guid>/ada-2022-project-wetried//the-purpose-of-education</guid>
 	  <description><![CDATA[
 	     <p>As I engage in the so-called “bull sessions” around and about the school, I too often find that most college men have a misconception of the purpose of education. Most of the “brethren” think that education should equip them with the proper instruments of exploitation so that they can forever trample over the masses. Still others think that education should furnish them with noble ends rather than means to an end.</p>
 

@@ -3,7 +3,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
    
-      <title>jekyllt.github.io/jasper/</title>
+      <title>jekyllt.github.io/ada-2022-project-wetried/</title>
    
    <link>http://localhost:4000</link>
    <description>A beautiful narrative written with the world's most elegant publishing platform. The story begins here.</description>
@@ -13,10 +13,10 @@
    
 	<item>
 	  <title>Out to Sea</title>
-	  <link>/jasper//out-to-sea</link>
+	  <link>/ada-2022-project-wetried//out-to-sea</link>
 	  <author></author>
 	  <pubDate>1912-07-24T11:18:00+01:00</pubDate>
-	  <guid>/jasper//out-to-sea</guid>
+	  <guid>/ada-2022-project-wetried//out-to-sea</guid>
 	  <description><![CDATA[
 	     <p>I had this story from one who had no business to tell it to me, or to any other. I may credit the seductive influence of an old vintage upon the narrator for the beginning of it, and my own skeptical incredulity during the days that followed for the balance of the strange tale.</p>
 
