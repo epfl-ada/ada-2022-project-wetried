@@ -202,13 +202,7 @@
             var country = list[i]
             countryIndexMap[country.id] = i;
         }
-        
-        // calculated active cases in world data (active = confirmed - recovered)
-        for (var i = 0; i < graph_data.length; i++) {
-            var di = graph_data[i];
-            di.active = di.confirmed - di.recovered;
-        }
-        
+   
         // function that returns current slide
         // if index is not set, get last slide
         function getSlideData(index) {
@@ -241,7 +235,7 @@
         
         
         var max = { confirmed: 0, recovered: 0, deaths: 0 };
-        var maxPC = { confirmed: 0, recovered: 0, deaths: 0, active: 0 };
+        var maxPC = { confirmed: 0, recovered: 0, deaths: 0};
         
         // the last day will have most
         for (var i = 0; i < mapData.length; i++) {
@@ -255,7 +249,6 @@
             if (di.deaths > max.deaths) {
             max.deaths = di.deaths
             }
-            max.active = max.confirmed;
         }
         
         // END OF DATA
@@ -973,12 +966,11 @@
         
         // BUTTONS
         // create buttons
-        var activeButton = addButton("active", activeColor);
         var confirmedButton = addButton("confirmed", confirmedColor);
         var recoveredButton = addButton("recovered", recoveredColor);
         var deathsButton = addButton("deaths", deathsColor);
         
-        var buttons = { active: activeButton, confirmed: confirmedButton, recovered: recoveredButton, deaths: deathsButton };
+        var buttons = { confirmed: confirmedButton, recovered: recoveredButton, deaths: deathsButton };
         
         // add button
         function addButton(name, color) {
@@ -1111,7 +1103,6 @@
                 dataContext.recovered = countryData.recovered;
                 dataContext.confirmed = countryData.confirmed;
                 dataContext.deaths = countryData.deaths;
-                dataContext.active = countryData.confirmed - countryData.recovered - countryData.deaths;
                 valueAxis.min = undefined;
                 valueAxis.max = undefined;
             }
@@ -1119,7 +1110,6 @@
                 dataContext.recovered = 0;
                 dataContext.confirmed = 0;
                 dataContext.deaths = 0;
-                dataContext.active = 0;
                 valueAxis.min = 0;
                 valueAxis.max = 10;
             }
@@ -1212,7 +1202,6 @@
             dataContext.recovered = di.recovered;
             dataContext.confirmed = di.confirmed;
             dataContext.deaths = di.deaths;
-            dataContext.active = di.confirmed - di.recovered;
             valueAxis.min = undefined;
             valueAxis.max = undefined;
             }
@@ -1261,10 +1250,9 @@
             dataItem.dataContext.confirmed = 0;
             dataItem.dataContext.deaths = 0;
             dataItem.dataContext.recovered = 0;
-            dataItem.dataContext.active = 0;
             })
         
-            maxPC = { active: 0, confirmed: 0, deaths: 0, recovered: 0 };
+            maxPC = { confirmed: 0, deaths: 0, recovered: 0 };
         
             for (var i = 0; i < data.length; i++) {
             var di = data[i];
@@ -1277,15 +1265,12 @@
                 image.dataItem.dataContext.confirmed = di.confirmed;
                 image.dataItem.dataContext.deaths = di.deaths;
                 image.dataItem.dataContext.recovered = di.recovered;
-                image.dataItem.dataContext.active = di.confirmed - di.recovered - di.deaths;
             }
         
             if (polygon) {
                 polygon.dataItem.dataContext.confirmedPC = di.confirmed / population * 1000000;
                 polygon.dataItem.dataContext.deathsPC = di.deaths / population * 1000000;
                 polygon.dataItem.dataContext.recoveredPC = di.recovered / population * 1000000;
-                polygon.dataItem.dataContext.active = di.confirmed - di.recovered - di.deaths;
-                polygon.dataItem.dataContext.activePC = polygon.dataItem.dataContext.active / population * 1000000;
         
                 if (population > 100000) {
                 if (polygon.dataItem.dataContext.confirmedPC > maxPC.confirmed) {
@@ -1296,9 +1281,6 @@
                 }
                 if (polygon.dataItem.dataContext.recoveredPC > maxPC.recovered) {
                     maxPC.recovered = polygon.dataItem.dataContext.recoveredPC;
-                }
-                if (polygon.dataItem.dataContext.activePC > maxPC.active) {
-                    maxPC.active = polygon.dataItem.dataContext.activePC;
                 }
                 }
             }
@@ -1351,7 +1333,7 @@
         
         // set initial data and names
         updateCountryName();
-        changeDataType("active");
+        changeDataType("confirmed");
         //populateCountries(slideData.list);
         
         setTimeout(updateSeriesTooltip, 3000);
