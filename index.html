@@ -850,10 +850,10 @@
         confirmedSeries.tooltip.disabled = true;
         confirmedSeries.hidden = false;
         
-        var recoveredSeries = addSeries("recovered", recoveredColor);
-        var deathsSeries = addSeries("deaths", deathsColor);
+        //var recoveredSeries = addSeries("recovered", recoveredColor);
+        //var deathsSeries = addSeries("deaths", deathsColor);
         
-        var series = { confirmed: confirmedSeries, recovered: recoveredSeries, deaths: deathsSeries };
+        var series = { confirmed: confirmedSeries };//, recovered: recoveredSeries, deaths: deathsSeries };
         // add series
         function addSeries(name, color) {
             var series = lineChart.series.push(new am4charts.LineSeries())
@@ -899,7 +899,7 @@
         }
         
         
-        var series = {confirmed: confirmedSeries, recovered: recoveredSeries, deaths: deathsSeries };
+        var series = {confirmed: confirmedSeries };//, recovered: recoveredSeries, deaths: deathsSeries };
         
         var columnSeries;
         
@@ -965,10 +965,10 @@
         // BUTTONS
         // create buttons
         var confirmedButton = addButton("confirmed", confirmedColor);
-        var recoveredButton = addButton("recovered", recoveredColor);
-        var deathsButton = addButton("deaths", deathsColor);
+        //var recoveredButton = addButton("recovered", recoveredColor);
+        //var deathsButton = addButton("deaths", deathsColor);
         
-        var buttons = { confirmed: confirmedButton, recovered: recoveredButton, deaths: deathsButton };
+        var buttons = { confirmed: confirmedButton };//, recovered: recoveredButton, deaths: deathsButton };
         
         // add button
         function addButton(name, color) {
@@ -1018,9 +1018,6 @@
         function changeDataType(name) {
             currentType = name;
             currentTypeName = name;
-            if (name != "deaths") {
-            currentTypeName += " cases";
-            }
         
             bubbleSeries.mapImages.template.tooltipText = "[bold]{name}: {value}[/] [font-size:10px]\n" + currentTypeName;
         
