@@ -871,7 +871,6 @@
                 series.minBulletDistance = 10;
                 series.hidden = true;
                 series.hideTooltipWhileZooming = true;
-                series.dataFields.max = 10;
             
             
                 // series bullet
@@ -911,10 +910,6 @@
             function createColumnSeries() {
                 columnSeries = {}
                 columnSeries.confirmed = addColumnSeries("confirmed", confirmedColor);
-                columnSeries.confirmed.events.on("validated", function() {
-                updateColumnsFill();
-                })
-            
                 columnSeries.recovered = addColumnSeries("recovered", recoveredColor);
                 columnSeries.deaths = addColumnSeries("deaths", deathsColor);
             }
