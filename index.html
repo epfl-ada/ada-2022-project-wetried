@@ -206,7 +206,7 @@
         // function that returns current slide
         // if index is not set, get last slide
         function getSlideData(index) {
-            if (index == undefined) {
+            if (index == undefined || index == NaN) {
             index = graph_data.length - 1;
             }
         
