@@ -732,7 +732,7 @@
             valueAxis.renderer.maxLabelPosition = 0.98;
             valueAxis.renderer.baseGrid.disabled = true;
             valueAxis.tooltip.disabled = true;
-            valueAxis.extraMax = 0.5;
+            valueAxis.extraMax = 0.005;
             valueAxis.maxPrecision = 0;
             valueAxis.renderer.inside = true;
             valueAxis.renderer.labels.template.verticalCenter = "bottom";
@@ -851,8 +851,8 @@
             // create series
             var confirmedSeries = addSeries("confirmed", confirmedColor);
             // active series is visible initially
-            //confirmedSeries.tooltip.disabled = true;
-            //confirmedSeries.hidden = false;
+            confirmedSeries.tooltip.disabled = true;
+            confirmedSeries.hidden = false;
             
             var recoveredSeries = addSeries("recovered", recoveredColor);
             var deathsSeries = addSeries("deaths", deathsColor);
