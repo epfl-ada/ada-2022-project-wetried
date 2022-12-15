@@ -1038,14 +1038,14 @@
             
                 resetHover();
                 if (mapPolygon) {
-                mapPolygon.isHover = true;
-            
-                // make bubble hovered too
-                var image = bubbleSeries.getImageById(mapPolygon.dataItem.id);
-                if (image) {
-                    image.dataItem.dataContext.name = mapPolygon.dataItem.dataContext.name;
-                    image.isHover = true;
-                }
+                    mapPolygon.isHover = true;
+                
+                    // make bubble hovered too
+                    var image = bubbleSeries.getImageById(mapPolygon.dataItem.id);
+                    if (image) {
+                        image.dataItem.dataContext.name = mapPolygon.dataItem.dataContext.name;
+                        image.isHover = true;
+                    }
                 }
             }
             // what happens when a country is rolled-out
@@ -1054,7 +1054,7 @@
             
                 resetHover();
                 if (image) {
-                image.isHover = false;
+                    image.isHover = false;
                 }
             }
 
@@ -1070,11 +1070,6 @@
                         dataContext.envviews = countryData.envviews;
                         valueAxis.min = undefined;
                         valueAxis.max = undefined;
-                    } else {
-                        dataContext.recovered = 0;
-                        dataContext.deaths = 0;
-                        valueAxis.min = 0;
-                        valueAxis.max = 10;
                     }
                 }
 
@@ -1125,8 +1120,25 @@
                     dataContext.recovered = di.recovered;
                     dataContext.airpol = di.airpol;
                     dataContext.envviews = di.envviews;
-                    valueAxis.min = undefined;
-                    valueAxis.max = undefined;
+                    
+                    var min = Number.MAX_SAFE_INTEGER;
+                    var max = 0;
+
+                    for (key in series) {
+                        if (series[key].visible) {
+                            if (min > totalMin[key]) {
+                                min = totalMin[key];
+                            }
+                            
+                            if (max < totalMax[key]) {
+                                max = totalMax[key];
+                            }
+                        }
+                    }
+                    
+
+                    valueAxis.min = min;
+                    valueAxis.max = max;
                 }
             
                 lineChart.invalidateRawData();
