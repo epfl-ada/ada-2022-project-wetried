@@ -880,7 +880,7 @@
                 var series = lineChart.series.push(new am4charts.LineSeries())
                 series.dataFields.valueY = name;
                 series.dataFields.dateX = "date";
-                series.name = capitalizeFirstLetter(name);
+                series.name = createName(name);
                 series.strokeOpacity = 0.6;
                 series.stroke = color;
                 series.fill = color;
@@ -938,7 +938,7 @@
                 series.dataFields.valueY = name;
                 series.dataFields.valueYShow = "previousChange";
                 series.dataFields.dateX = "date";
-                series.name = capitalizeFirstLetter(name);
+                series.name = createName(name);
                 series.hidden = true;
                 series.stroke = color;
                 series.fill = color;
@@ -1226,7 +1226,7 @@
                 for (var key in buttons) {
                     var count = Number(lineChart.data[index][key])
                     if (!isNaN(count)) {
-                    buttons[key].label.text = capitalizeFirstLetter(key) + ": " + numberFormatter.format(count, '#,###');
+                    buttons[key].label.text = createName(key) + ": " + numberFormatter.format(count, '#,###');
                     }
                 }
                 currentIndex = index;
@@ -1284,8 +1284,14 @@
             }
             
             // capitalize first letter
-            function capitalizeFirstLetter(string) {
-                return string.charAt(0).toUpperCase() + string.slice(1);
+            function createName(string) {
+                if (string == "airpol") {
+                    return "Air Pollution";
+                } else if (string == "envviews") {
+                    return "Environment Topic Views";
+                }
+
+                return "aaah";
             }
             
             
