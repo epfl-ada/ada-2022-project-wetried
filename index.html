@@ -770,21 +770,6 @@
             valueAxis.renderer.labels.template.verticalCenter = "bottom";
             valueAxis.renderer.labels.template.fill = am4core.color("#ffffff");
             valueAxis.renderer.labels.template.padding(2, 2, 2, 2);
-           /* valueAxis.adapter.add("max", function(max, target) {
-                if (max < 5) {
-                max = 5
-                }
-                return max;
-            })
-            
-            valueAxis.adapter.add("min", function(min, target) {
-                if (!seriesTypeSwitch.isActive) {
-                if (min < 0) {
-                    min = 0;
-                }
-                }
-                return min;
-            })*/
             
             // cursor
             // https://www.amcharts.com/docs/v4/concepts/chart-cursor/
@@ -901,6 +886,7 @@
                 series.fill = color;
                 series.maskBullets = false;
                 series.minBulletDistance = 10;
+                series.minDistance = 10
                 series.hidden = true;
                 series.hideTooltipWhileZooming = true;
             
