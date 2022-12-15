@@ -799,6 +799,8 @@
             lineChart.legend.itemContainers.template.events.on("up", function() {
                 setTimeout(function() {
                 legendDown = false;
+                valueAxis.min = undefined;
+                valueAxis.max = undefined;
                 }, 100)
             })
             
@@ -874,45 +876,6 @@
             
             
             var series = {airpol: airpolSeries, recovered: recoveredSeries, envviews: envviewsSeries };
-            
-            var columnSeries;
-            
-            function createColumnSeries() {
-                columnSeries = {}
-                columnSeries.airpol = addColumnSeries("airpol", airpolColor);
-                columnSeries.recovered = addColumnSeries("recovered", recoveredColor);
-                columnSeries.envviews = addColumnSeries("envviews", envviewsColor);
-            }
-            
-            // add series
-            function addColumnSeries(name, color) {
-                var series = lineChart.series.push(new am4charts.ColumnSeries())
-                series.dataFields.valueY = name;
-                series.dataFields.valueYShow = "previousChange";
-                series.dataFields.dateX = "date";
-                series.name = createName(name);
-                series.hidden = true;
-                series.stroke = color;
-                series.fill = color;
-                series.columns.template.fillOpacity = 0.6;
-                series.columns.template.strokeOpacity = 0;
-                series.hideTooltipWhileZooming = true;
-                series.clustered = false;
-                series.hiddenInLegend = true;
-                series.columns.template.width = am4core.percent(50);
-            
-                // tooltip setup
-                series.tooltip.pointerOrientation = "down";
-                series.tooltip.getStrokeFromObject = true;
-                series.tooltip.getFillFromObject = false;
-                series.tooltip.background.fillOpacity = 0.2;
-                series.tooltip.background.fill = am4core.color("#000000");
-                series.tooltip.fontSize = "0.8em";
-                series.tooltipText = "{name}: {valueY.previousChange.formatNumber('+#,###|#,###|0')}";
-            
-                return series;
-            }
-            
             
             lineChart.plotContainer.events.on("up", function() {
                 if (!legendDown) {
