@@ -560,7 +560,7 @@
             slider.startGrip.events.on("drag", () => {
                 stop();
                 if (sliderAnimation) {
-                sliderAnimation.setProgress(slider.start);
+                    sliderAnimation.setProgress(slider.start);
                 }
             });
             
@@ -570,9 +570,9 @@
             // play button behavior
             playButton.events.on("toggled", function(event) {
                 if (event.target.isActive) {
-                play();
+                    play();
                 } else {
-                stop();
+                    stop();
                 }
             })
             // make slider grip look like play button
@@ -626,7 +626,7 @@
             sizeLabel.tooltip.setBounds({ x: 0, y: 0, width: 200000, height: 200000 })
             sizeLabel.tooltip.label.wrap = true;
             sizeLabel.tooltip.label.maxWidth = 300;
-            sizeLabel.tooltipText = "Some countries have so many cases that bubbles for countries with smaller values often look the same even if there is a significant difference between them. This slider can be used to increase maximum size of a bubble so that when you zoom in to a region with relatively small values you could compare them anyway."
+            sizeLabel.tooltipText = "Some countries have values so big that bubbles for countries with smaller values often look the same even if there is a significant difference between them. This slider can be used to increase maximum size of a bubble so that when you zoom in to a region with relatively small values you could compare them anyway."
             sizeLabel.fill = am4core.color("#ffffff");
             
             sizeLabel.adapter.add("y", function(y, target) {
@@ -700,10 +700,10 @@
             // play behavior
             function play() {
                 if (!sliderAnimation) {
-                sliderAnimation = slider.animate({ property: "start", to: 1, from: 0 }, 50000, am4core.ease.linear).pause();
-                sliderAnimation.events.on("animationended", () => {
-                    playButton.isActive = false;
-                })
+                    sliderAnimation = slider.animate({ property: "start", to: 1, from: 0 }, 50000, am4core.ease.linear).pause();
+                    sliderAnimation.events.on("animationended", () => {
+                        playButton.isActive = false;
+                    })
                 }
             
                 if (slider.start >= 1) {
@@ -717,7 +717,7 @@
             // stop behavior
             function stop() {
                 if (sliderAnimation) {
-                sliderAnimation.pause();
+                    sliderAnimation.pause();
                 }
                 playButton.isActive = false;
             }
@@ -747,10 +747,7 @@
             dateAxis.tooltip.background.fill = activeColor;
             dateAxis.tooltip.background.stroke = activeColor;
             dateAxis.renderer.labels.template.fill = am4core.color("#ffffff");
-            /*
-            dateAxis.renderer.labels.template.adapter.add("fillOpacity", function(fillOpacity, target){
-                return dateAxis.valueToPosition(target.dataItem.value) + 0.1;
-            })*/
+
             
             // value axis
             // https://www.amcharts.com/docs/v4/concepts/axes/value-axis/
@@ -958,28 +955,28 @@
                 currentType = name;
                 currentTypeName = name;
             
-                bubbleSeries.mapImages.template.tooltipText = "[bold]{name}: {value}[/] [font-size:10px]\n" + currentTypeName;
+                bubbleSeries.mapImages.template.tooltipText = "[bold]{name}: {value}[/] [font-size:10px]\n" + createName(currentTypeName);
             
                 // make button active
                 var activeButton = buttons[name];
                 activeButton.isActive = true;
                 // make other buttons inactive
                 for (var key in buttons) {
-                if (buttons[key] != activeButton) {
-                    buttons[key].isActive = false;
-                }
+                    if (buttons[key] != activeButton) {
+                        buttons[key].isActive = false;
+                    }
                 }
                 // tell series new field name
                 bubbleSeries.dataFields.value = name;
                 polygonSeries.dataFields.value = name + "PC";
             
                 bubbleSeries.dataItems.each(function(dataItem) {
-                dataItem.setValue("value", dataItem.dataContext[currentType]);
+                    dataItem.setValue("value", dataItem.dataContext[currentType]);
                 })
             
                 polygonSeries.dataItems.each(function(dataItem) {
-                dataItem.setValue("value", dataItem.dataContext[currentType + "PC"]);
-                dataItem.mapPolygon.defaultState.properties.fill = undefined;
+                    dataItem.setValue("value", dataItem.dataContext[currentType + "PC"]);
+                    dataItem.mapPolygon.defaultState.properties.fill = undefined;
                 })
             
             
@@ -1004,7 +1001,7 @@
                 // hide other series
                 for (var key in series) {
                     if (series[key] != activeSeries) {
-                    series[key].hide();
+                        series[key].hide();
                     }
                 }
                 
@@ -1013,8 +1010,8 @@
                 bubbleSeries.heatRules.getIndex(0).maxValue = max[currentType];
                 polygonSeries.heatRules.getIndex(0).maxValue = maxPC[currentType];
                 if (perCapita) {
-                polygonSeries.heatRules.getIndex(0).max = colors[name];
-                updateCountryTooltip();
+                    polygonSeries.heatRules.getIndex(0).max = colors[name];
+                    updateCountryTooltip();
                 }
             }
         
@@ -1064,7 +1061,7 @@
                 polygonSeries.hideTooltip();
                 var animation = mapChart.animate([{ property: "deltaLongitude", to: -mapPolygon.visualLongitude }, { property: "deltaLatitude", to: -mapPolygon.visualLatitude }], 1000)
                 animation.events.on("animationended", function() {
-                mapChart.zoomToMapObject(mapPolygon, getZoomLevel(mapPolygon));
+                    mapChart.zoomToMapObject(mapPolygon, getZoomLevel(mapPolygon));
                 })
             }
             
@@ -1083,26 +1080,26 @@
                 resetHover();
             
                 if (countryDataTimeout) {
-                clearTimeout(countryDataTimeout);
+                    clearTimeout(countryDataTimeout);
                 }
             
                 // make all inactive
                 polygonSeries.mapPolygons.each(function(polygon) {
-                polygon.isActive = false;
+                    polygon.isActive = false;
                 })
             
                 updateCountryName();
             
                 // update line chart data (again, modifying instead of setting new data for a nice animation)
                 for (var i = 0; i < lineChart.data.length; i++) {
-                var di = graph_data[i];
-                var dataContext = lineChart.data[i];
-            
-                dataContext.recovered = di.recovered;
-                dataContext.airpol = di.airpol;
-                dataContext.envviews = di.envviews;
-                valueAxis.min = undefined;
-                valueAxis.max = undefined;
+                    var di = graph_data[i];
+                    var dataContext = lineChart.data[i];
+                
+                    dataContext.recovered = di.recovered;
+                    dataContext.airpol = di.airpol;
+                    dataContext.envviews = di.envviews;
+                    valueAxis.min = undefined;
+                    valueAxis.max = undefined;
                 }
             
                 lineChart.invalidateRawData();
@@ -1135,7 +1132,7 @@
                 for (var key in buttons) {
                     var count = Number(lineChart.data[index][key])
                     if (!isNaN(count)) {
-                    buttons[key].label.text = createName(key) + ": " + numberFormatter.format(count, '#,###');
+                        buttons[key].label.text = createName(key) + ": " + numberFormatter.format(count, '#,###.##');
                     }
                 }
                 currentIndex = index;
