@@ -1116,32 +1116,32 @@
             
                 // update line chart data (again, modifying instead of setting new data for a nice animation)
                 for (var i = 0; i < lineChart.data.length; i++) {
-                    var di = graph_data[i];
+                    var di = line_data[i];
                     var dataContext = lineChart.data[i];
                 
                     dataContext.recovered = di.recovered;
                     dataContext.airpol = di.airpol;
                     dataContext.envviews = di.envviews;
-                    
-                    var min = Number.MAX_SAFE_INTEGER;
-                    var max = 0;
+                }
 
-                    for (key in series) {
-                        if (series[key].visible) {
-                            if (min > totalMin[key]) {
-                                min = totalMin[key];
-                            }
-                            
-                            if (max < totalMax[key]) {
-                                max = totalMax[key];
-                            }
+                var min = Number.MAX_SAFE_INTEGER;
+                var max = 0;
+
+                for (key in series) {
+                    if (series[key].visible) {
+                        if (min > totalMin[key]) {
+                            min = totalMin[key];
+                        }
+                        
+                        if (max < totalMax[key]) {
+                            max = totalMax[key];
                         }
                     }
-                    
-
-                    valueAxis.min = min;
-                    valueAxis.max = max;
                 }
+                
+
+                valueAxis.min = min;
+                valueAxis.max = max;
             
                 lineChart.invalidateRawData();
             
