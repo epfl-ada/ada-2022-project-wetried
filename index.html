@@ -361,6 +361,7 @@
             polygonTemplate.setStateOnChildren = true;
             polygonTemplate.tooltipPosition = "fixed";
             
+            polygonTemplate.events.on("hit", handleCountryHit);
             polygonTemplate.events.on("over", handleCountryOver);
             polygonTemplate.events.on("out", handleCountryOut);
             
@@ -412,7 +413,8 @@
             
             imageTemplate.events.on("over", handleImageOver);
             imageTemplate.events.on("out", handleImageOut);
-            
+            imageTemplate.events.on("hit", handleImageHit);
+
             // this is needed for the tooltip to point to the top of the circle instead of the middle
             imageTemplate.adapter.add("tooltipY", function(tooltipY, target) {
                 return -target.children.getIndex(0).radius;
