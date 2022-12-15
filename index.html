@@ -1203,6 +1203,16 @@
                 return "aaah";
             }
             
+            function getDataName(string) {
+                if (string == "Air Pollution") {
+                    return "airpol";
+                } else if (string == "Environment Topic Views") {
+                    return "envviews";
+                }
+
+                return "aaah";
+            }
+            
             
             function handleImageOver(event) {
                 rollOverCountry(polygonSeries.getPolygonById(event.target.dataItem.id));
