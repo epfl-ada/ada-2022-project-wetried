@@ -162,12 +162,12 @@
             
             var backgroundColor = am4core.color("#1e2128");
             var activeColor = am4core.color("#ff8726");
-            var confirmedColor = am4core.color("#d21a1a");
+            var airpolColor = am4core.color("#d21a1a");
             var recoveredColor = am4core.color("#45d21a");
-            var deathsColor = am4core.color("#1c5fe5");
+            var envviewsColor = am4core.color("#1c5fe5");
             
             // for an easier access by key
-            var colors = { active: activeColor, confirmed: confirmedColor, recovered: recoveredColor, deaths: deathsColor };
+            var colors = { active: activeColor, airpol: airpolColor, recovered: recoveredColor, envviews: envviewsColor };
             
             var countryColor = am4core.color("#3b3b3b");
             var countryStrokeColor = am4core.color("#000000");
@@ -232,57 +232,57 @@
             
             // remove items with 0 values for better performance
             for(var i = mapData.length - 1; i >= 0; i--){
-                if(mapData[i].confirmed == 0){
+                if(mapData[i].airpol == 0){
                 mapData.splice(i, 1);
                 }
             }
             
             
-            var max = { confirmed: 0, recovered: 0, deaths: 0 };
-            var maxPC = { confirmed: 0, recovered: 0, deaths: 0};
+            var max = { airpol: 0, recovered: 0, envviews: 0 };
+            var maxPC = { airpol: 0, recovered: 0, envviews: 0};
             
             // the last day will have most
             for (var i = 0; i < mapData.length; i++) {
                 var di = mapData[i];
                 
                 // max
-                if (di.confirmed > max.confirmed) {
-                    max.confirmed = di.confirmed;
+                if (di.airpol > max.airpol) {
+                    max.airpol = di.airpol;
                 }
                 if (di.recovered > max.recovered) {
                     max.recovered = di.recovered;
                 }
-                if (di.deaths > max.deaths) {
-                    max.deaths = di.deaths
+                if (di.envviews > max.envviews) {
+                    max.envviews = di.envviews
                 }
             }
 
-            var totalMax = { confirmed: 0, recovered: 0, deaths: 0 };
-            var totalMin = { confirmed: Number.MAX_SAFE_INTEGER, recovered: Number.MAX_SAFE_INTEGER, deaths: Number.MAX_SAFE_INTEGER };
+            var totalMax = { airpol: 0, recovered: 0, envviews: 0 };
+            var totalMin = { airpol: Number.MAX_SAFE_INTEGER, recovered: Number.MAX_SAFE_INTEGER, envviews: Number.MAX_SAFE_INTEGER };
 
             for (var i = 0; i < line_data.length; i++) {
                 var di = line_data[i];
 
                 // max
-                if (di.confirmed > totalMax.confirmed) {
-                    totalMax.confirmed = di.confirmed;
+                if (di.airpol > totalMax.airpol) {
+                    totalMax.airpol = di.airpol;
                 }
                 if (di.recovered > totalMax.recovered) {
                     totalMax.recovered = di.recovered;
                 }
-                if (di.deaths > totalMax.deaths) {
-                    totalMax.deaths = di.deaths
+                if (di.envviews > totalMax.envviews) {
+                    totalMax.envviews = di.envviews
                 }
 
                 // min
-                if (di.confirmed < totalMin.confirmed) {
-                    totalMin.confirmed = di.confirmed;
+                if (di.airpol < totalMin.airpol) {
+                    totalMin.airpol = di.airpol;
                 }
                 if (di.recovered < totalMin.recovered) {
                     totalMin.recovered = di.recovered;
                 }
-                if (di.deaths < totalMin.deaths) {
-                    totalMin.deaths = di.deaths
+                if (di.envviews < totalMin.envviews) {
+                    totalMin.envviews = di.envviews
                 }
             }
             
@@ -342,7 +342,7 @@
             // Map polygon series (defines how country areas look and behave)
             var polygonSeries = mapChart.series.push(new am4maps.MapPolygonSeries());
             polygonSeries.dataFields.id = "id";
-            polygonSeries.dataFields.value = "confirmedPC";
+            polygonSeries.dataFields.value = "airpolPC";
             polygonSeries.interpolationDuration = 0;
             
             polygonSeries.exclude = ["AQ"]; // Antarctica is excluded in non-globe projection
@@ -390,7 +390,7 @@
             var bubbleSeries = mapChart.series.push(new am4maps.MapImageSeries());  
             bubbleSeries.data = JSON.parse(JSON.stringify(mapData));
             
-            bubbleSeries.dataFields.value = "confirmed";
+            bubbleSeries.dataFields.value = "airpol";
             bubbleSeries.dataFields.id = "id";
             
             // adjust tooltip
@@ -513,7 +513,7 @@
             countryName.fill = am4core.color("#ffffff");
             countryName.valign = "middle";
             
-            // buttons container (active/confirmed/recovered/deaths)
+            // buttons container (active/airpol/recovered/envviews)
             var buttonsContainer = nameAndButtonsContainer.createChild(am4core.Container);
             buttonsContainer.layout = "grid";
             buttonsContainer.width = am4core.percent(100);
@@ -866,15 +866,15 @@
             
             
             // create series
-            var confirmedSeries = addSeries("confirmed", confirmedColor);
+            var airpolSeries = addSeries("airpol", airpolColor);
             // active series is visible initially
-            confirmedSeries.tooltip.disabled = true;
-            confirmedSeries.hidden = false;
+            airpolSeries.tooltip.disabled = true;
+            airpolSeries.hidden = false;
             
             var recoveredSeries = addSeries("recovered", recoveredColor);
-            var deathsSeries = addSeries("deaths", deathsColor);
+            var envviewsSeries = addSeries("envviews", envviewsColor);
             
-            var series = { confirmed: confirmedSeries, recovered: recoveredSeries, deaths: deathsSeries };
+            var series = { airpol: airpolSeries, recovered: recoveredSeries, envviews: envviewsSeries };
             // add series
             function addSeries(name, color) {
                 var series = lineChart.series.push(new am4charts.LineSeries())
@@ -921,15 +921,15 @@
             }
             
             
-            var series = {confirmed: confirmedSeries, recovered: recoveredSeries, deaths: deathsSeries };
+            var series = {airpol: airpolSeries, recovered: recoveredSeries, envviews: envviewsSeries };
             
             var columnSeries;
             
             function createColumnSeries() {
                 columnSeries = {}
-                columnSeries.confirmed = addColumnSeries("confirmed", confirmedColor);
+                columnSeries.airpol = addColumnSeries("airpol", airpolColor);
                 columnSeries.recovered = addColumnSeries("recovered", recoveredColor);
-                columnSeries.deaths = addColumnSeries("deaths", deathsColor);
+                columnSeries.envviews = addColumnSeries("envviews", envviewsColor);
             }
             
             // add series
@@ -982,11 +982,11 @@
             
             // BUTTONS
             // create buttons
-            var confirmedButton = addButton("confirmed", confirmedColor);
+            var airpolButton = addButton("airpol", airpolColor);
             var recoveredButton = addButton("recovered", recoveredColor);
-            var deathsButton = addButton("deaths", deathsColor);
+            var envviewsButton = addButton("envviews", envviewsColor);
             
-            var buttons = { confirmed: confirmedButton, recovered: recoveredButton, deaths: deathsButton };
+            var buttons = { airpol: airpolButton, recovered: recoveredButton, envviews: envviewsButton };
             
             // add button
             function addButton(name, color) {
@@ -1032,7 +1032,7 @@
                 changeDataType(event.target.dummyData);
             }
             
-            // change data type (active/confirmed/recovered/deaths)
+            // change data type (active/airpol/recovered/envviews)
             function changeDataType(name) {
                 currentType = name;
                 currentTypeName = name;
@@ -1190,8 +1190,8 @@
                 var dataContext = lineChart.data[i];
             
                 dataContext.recovered = di.recovered;
-                dataContext.confirmed = di.confirmed;
-                dataContext.deaths = di.deaths;
+                dataContext.airpol = di.airpol;
+                dataContext.envviews = di.envviews;
                 valueAxis.min = undefined;
                 valueAxis.max = undefined;
                 }
@@ -1237,12 +1237,12 @@
             function updateMapData(data) {
                 //modifying instead of setting new data for a nice animation
                 bubbleSeries.dataItems.each(function(dataItem) {
-                dataItem.dataContext.confirmed = 0;
-                dataItem.dataContext.deaths = 0;
+                dataItem.dataContext.airpol = 0;
+                dataItem.dataContext.envviews = 0;
                 dataItem.dataContext.recovered = 0;
                 })
             
-                maxPC = { confirmed: 0, deaths: 0, recovered: 0 };
+                maxPC = { airpol: 0, envviews: 0, recovered: 0 };
             
                 for (var i = 0; i < data.length; i++) {
                 var di = data[i];
@@ -1252,22 +1252,22 @@
                 if (image) {
                     var population = Number(populations[image.dataItem.dataContext.id]);
             
-                    image.dataItem.dataContext.confirmed = di.confirmed;
-                    image.dataItem.dataContext.deaths = di.deaths;
+                    image.dataItem.dataContext.airpol = di.airpol;
+                    image.dataItem.dataContext.envviews = di.envviews;
                     image.dataItem.dataContext.recovered = di.recovered;
                 }
             
                 if (polygon) {
-                    polygon.dataItem.dataContext.confirmedPC = di.confirmed / population * 1000000;
-                    polygon.dataItem.dataContext.deathsPC = di.deaths / population * 1000000;
+                    polygon.dataItem.dataContext.airpolPC = di.airpol / population * 1000000;
+                    polygon.dataItem.dataContext.envviewsPC = di.envviews / population * 1000000;
                     polygon.dataItem.dataContext.recoveredPC = di.recovered / population * 1000000;
             
                     if (population > 100000) {
-                    if (polygon.dataItem.dataContext.confirmedPC > maxPC.confirmed) {
-                        maxPC.confirmed = polygon.dataItem.dataContext.confirmedPC;
+                    if (polygon.dataItem.dataContext.airpolPC > maxPC.airpol) {
+                        maxPC.airpol = polygon.dataItem.dataContext.airpolPC;
                     }
-                    if (polygon.dataItem.dataContext.deathsPC > maxPC.deaths) {
-                        maxPC.deaths = polygon.dataItem.dataContext.deathsPC;
+                    if (polygon.dataItem.dataContext.envviewsPC > maxPC.envviews) {
+                        maxPC.envviews = polygon.dataItem.dataContext.envviewsPC;
                     }
                     if (polygon.dataItem.dataContext.recoveredPC > maxPC.recovered) {
                         maxPC.recovered = polygon.dataItem.dataContext.recoveredPC;
@@ -1323,7 +1323,7 @@
             
             // set initial data and names
             updateCountryName();
-            changeDataType("confirmed");
+            changeDataType("airpol");
             //populateCountries(slideData.list);
             
             setTimeout(updateSeriesTooltip, 3000);
@@ -1347,8 +1347,8 @@
                     rollOverCountry(polygonSeries.getPolygonById($(this).data("areaid")));
                 });
                 $("<td>").appendTo(tr).data("areaid", area.id).html(area.name);
-                $("<td>").addClass("value").appendTo(tr).html(area.confirmed);
-                $("<td>").addClass("value").appendTo(tr).html(area.deaths);
+                $("<td>").addClass("value").appendTo(tr).html(area.airpol);
+                $("<td>").addClass("value").appendTo(tr).html(area.envviews);
                 $("<td>").addClass("value").appendTo(tr).html(area.recovered);
             
                 }
