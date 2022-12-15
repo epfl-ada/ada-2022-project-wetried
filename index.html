@@ -802,20 +802,23 @@
                 }, 100)
             })
             lineChart.legend.itemContainers.template.events.on("hit", function(ev) {
-                valueAxis.min = Number.MAX_SAFE_INTEGER;
-                valueAxis.max = 0;
+                var min = Number.MAX_SAFE_INTEGER;
+                var max = 0;
 
                 for (var key in series) {                    
                     if (series[key].visible) {
-                        if (valueAxis.min > totalMin[key]) {
-                            valueAxis.min = totalMin[key];
+                        if (min > totalMin[key]) {
+                            min = totalMin[key];
                         }
                         
-                        if (valueAxis.max < totalMax[key]) {
-                            valueAxis.max = totalMax[key];
+                        if (max < totalMax[key]) {
+                            max = totalMax[key];
                         }
                     }
                 }
+
+                valueAxis.min = min;
+                valueAxis.max = max;
             })
             
             
