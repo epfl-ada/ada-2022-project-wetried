@@ -1143,50 +1143,89 @@
             function updateMapData(data) {
                 //modifying instead of setting new data for a nice animation
                 bubbleSeries.dataItems.each(function(dataItem) {
-                dataItem.dataContext.airpol = 0;
-                dataItem.dataContext.envviews = 0;
-                dataItem.dataContext.recovered = 0;
+                    dataItem.dataContext.airpol = 0;
+                    dataItem.dataContext.envviews = 0;
+                    dataItem.dataContext.recovered = 0;
                 })
             
                 maxPC = { airpol: 0, envviews: 0, recovered: 0 };
             
                 for (var i = 0; i < data.length; i++) {
-                var di = data[i];
-                var image = bubbleSeries.getImageById(di.id);
-                var polygon = polygonSeries.getPolygonById(di.id);
-            
-                if (image) {
-                    var population = Number(populations[image.dataItem.dataContext.id]);
-            
-                    image.dataItem.dataContext.airpol = di.airpol;
-                    image.dataItem.dataContext.envviews = di.envviews;
-                    image.dataItem.dataContext.recovered = di.recovered;
+                    var di = data[i];
+                    var image = bubbleSeries.getImageById(di.id);
+                    var polygon = polygonSeries.getPolygonById(di.id);
+                
+                    if (image) {
+                        var population = Number(populations[image.dataItem.dataContext.id]);
+                
+                        image.dataItem.dataContext.airpol = di.airpol;
+                        image.dataItem.dataContext.envviews = di.envviews;
+                        image.dataItem.dataContext.recovered = di.recovered;
+                    }
+                
+                    if (polygon) {
+                        polygon.dataItem.dataContext.airpolPC = di.airpol / population * 1000000;
+                        polygon.dataItem.dataContext.envviewsPC = di.envviews / population * 1000000;
+                        polygon.dataItem.dataContext.recoveredPC = di.recovered / population * 1000000;
+                
+                        if (population > 100000) {
+                        if (polygon.dataItem.dataContext.airpolPC > maxPC.airpol) {
+                            maxPC.airpol = polygon.dataItem.dataContext.airpolPC;
+                        }
+                        if (polygon.dataItem.dataContext.envviewsPC > maxPC.envviews) {
+                            maxPC.envviews = polygon.dataItem.dataContext.envviewsPC;
+                        }
+                        if (polygon.dataItem.dataContext.recoveredPC > maxPC.recovered) {
+                            maxPC.recovered = polygon.dataItem.dataContext.recoveredPC;
+                        }
+                        }
+                    }
+                
+                    bubbleSeries.heatRules.getIndex(0).maxValue = max[currentType];
+                    polygonSeries.heatRules.getIndex(0).maxValue = maxPC[currentType];
+                
+                    bubbleSeries.invalidateRawData();
+                    polygonSeries.invalidateRawData();
                 }
-            
-                if (polygon) {
-                    polygon.dataItem.dataContext.airpolPC = di.airpol / population * 1000000;
-                    polygon.dataItem.dataContext.envviewsPC = di.envviews / population * 1000000;
-                    polygon.dataItem.dataContext.recoveredPC = di.recovered / population * 1000000;
-            
-                    if (population > 100000) {
-                    if (polygon.dataItem.dataContext.airpolPC > maxPC.airpol) {
-                        maxPC.airpol = polygon.dataItem.dataContext.airpolPC;
-                    }
-                    if (polygon.dataItem.dataContext.envviewsPC > maxPC.envviews) {
-                        maxPC.envviews = polygon.dataItem.dataContext.envviewsPC;
-                    }
-                    if (polygon.dataItem.dataContext.recoveredPC > maxPC.recovered) {
-                        maxPC.recovered = polygon.dataItem.dataContext.recoveredPC;
-                    }
-                    }
+            }
+
+            // select a country
+            function selectCountry(mapPolygon) {
+                resetHover();
+                polygonSeries.hideTooltip();
+
+                // if the same country is clicked show world
+                if (currentPolygon == mapPolygon) {
+                    currentPolygon.isActive = false;
+                    currentPolygon = undefined;
+                    showWorld();
+                    return;
                 }
-            
-                bubbleSeries.heatRules.getIndex(0).maxValue = max[currentType];
-                polygonSeries.heatRules.getIndex(0).maxValue = maxPC[currentType];
-            
-                bubbleSeries.invalidateRawData();
-                polygonSeries.invalidateRawData();
+                // save current polygon
+                currentPolygon = mapPolygon;
+                var countryIndex = countryIndexMap[mapPolygon.dataItem.id];
+                currentCountry = mapPolygon.dataItem.dataContext.name;
+
+                // make others inactive
+                polygonSeries.mapPolygons.each(function(polygon) {
+                    polygon.isActive = false;
+                })
+
+                // clear timeout if there is one
+                if (countryDataTimeout) {
+                    clearTimeout(countryDataTimeout);
                 }
+                // we delay change of data for better performance (so that data is not changed whil zooming)
+                countryDataTimeout = setTimeout(function() {
+                    setCountryData(countryIndex);
+                }, 1000); // you can adjust number, 1000 is one second
+
+                updateTotals(currentIndex);
+                updateCountryName();
+
+                mapPolygon.isActive = true;
+                // meaning it's globe
+                mapChart.zoomToMapObject(mapPolygon, getZoomLevel(mapPolygon));
             }
             
             // capitalize first letter
@@ -1226,6 +1265,15 @@
             function handleCountryOut(event) {
                 rollOutCountry(event.target);
             }
+
+            function handleImageHit(event) {
+                selectCountry(polygonSeries.getPolygonById(event.target.dataItem.id));
+            }
+
+            function handleCountryHit(event) {
+                selectCountry(event.target);
+            }
+
             
             function resetHover() {
                 polygonSeries.mapPolygons.each(function(polygon) {
