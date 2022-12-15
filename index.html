@@ -239,19 +239,33 @@
             
             
             var max = { confirmed: 0, recovered: 0, deaths: 0 };
+            var min = { confirmed: 0, recovered: 0, deaths: 0 };
             var maxPC = { confirmed: 0, recovered: 0, deaths: 0};
             
             // the last day will have most
             for (var i = 0; i < mapData.length; i++) {
                 var di = mapData[i];
+                
+                // max
                 if (di.confirmed > max.confirmed) {
-                max.confirmed = di.confirmed;
+                    max.confirmed = di.confirmed;
                 }
                 if (di.recovered > max.recovered) {
-                max.recovered = di.recovered;
+                    max.recovered = di.recovered;
                 }
                 if (di.deaths > max.deaths) {
-                max.deaths = di.deaths
+                    max.deaths = di.deaths
+                }
+
+                // min
+                if (di.confirmed < max.confirmed) {
+                    min.confirmed = di.confirmed;
+                }
+                if (di.recovered < max.recovered) {
+                    min.recovered = di.recovered;
+                }
+                if (di.deaths < max.deaths) {
+                    min.deaths = di.deaths
                 }
             }
             
@@ -1071,15 +1085,9 @@
                 var activeSeries = series[name];
                 activeSeries.show();
 
-                if (name == "confirmed") {
-                    valueAxis.min = 0;
-                    valueAxis.max = 200;
-                    valueAxis.strictMinMax = true; 
-                } else {
-                    valueAxis.min = 40000;
-                    valueAxis.max = 50000;
-                    valueAxis.strictMinMax = true;
-                }
+                valueAxis.min = min[name];
+                valueAxis.max = max[name];
+                valueAxis.strictMinMax = true; 
 
                 // hide other series
                 for (var key in series) {
