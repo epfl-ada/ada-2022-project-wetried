@@ -801,37 +801,39 @@
                 }, 100)
             })
             lineChart.legend.itemContainers.template.events.on("hit", function(ev) {
-                var min = Number.MAX_SAFE_INTEGER;
-                var max = 0;
-                var name = getDataName(ev.target.dataItem.dataContext.name);
+                if (currentPolygon == undefined) {
+                    var min = Number.MAX_SAFE_INTEGER;
+                    var max = 0;
+                    var name = getDataName(ev.target.dataItem.dataContext.name);
 
-                if (!series[name].visible) {
-                    if (min > totalMin[name]) {
-                        min = totalMin[name];
+                    if (!series[name].visible) {
+                        if (min > totalMin[name]) {
+                            min = totalMin[name];
+                        }
+                        
+                        if (max < totalMax[name]) {
+                            max = totalMax[name];
+                        }
                     }
-                    
-                    if (max < totalMax[name]) {
-                        max = totalMax[name];
-                    }
-                }
 
-                for (key in series) {
-                    if (key != name) {
-                        if (series[key].visible) {
-                            if (min > totalMin[key]) {
-                                min = totalMin[key];
-                            }
-                            
-                            if (max < totalMax[key]) {
-                                max = totalMax[key];
+                    for (key in series) {
+                        if (key != name) {
+                            if (series[key].visible) {
+                                if (min > totalMin[key]) {
+                                    min = totalMin[key];
+                                }
+                                
+                                if (max < totalMax[key]) {
+                                    max = totalMax[key];
+                                }
                             }
                         }
                     }
-                }
-                
+                    
 
-                valueAxis.min = min;
-                valueAxis.max = max;
+                    valueAxis.min = min;
+                    valueAxis.max = max;
+                }
             })
             
             
@@ -1155,26 +1157,26 @@
             // update total values in buttons
             function updateTotals(index) {
                 if (!isNaN(index)) {
-                var di = line_data[index];
-                var date = new Date(di.date);
-                currentDate = date;
-            
-                updateCountryName();
-            
-                var position = dateAxis.dateToPosition(date);
-                position = dateAxis.toGlobalPosition(position);
-                var x = dateAxis.positionToCoordinate(position);
-            
-                if (lineChart.cursor) {
-                    lineChart.cursor.triggerMove({ x: x, y: 0 }, "soft", true);
-                }
-                for (var key in buttons) {
-                    var count = Number(lineChart.data[index][key])
-                    if (!isNaN(count)) {
-                        buttons[key].label.text = createName(key) + ": " + numberFormatter.format(count, '#,###.##');
+                    var di = line_data[index];
+                    var date = new Date(di.date);
+                    currentDate = date;
+                
+                    updateCountryName();
+                
+                    var position = dateAxis.dateToPosition(date);
+                    position = dateAxis.toGlobalPosition(position);
+                    var x = dateAxis.positionToCoordinate(position);
+                
+                    if (lineChart.cursor) {
+                        lineChart.cursor.triggerMove({ x: x, y: 0 }, "soft", true);
                     }
-                }
-                currentIndex = index;
+                    for (var key in buttons) {
+                        var count = Number(lineChart.data[index][key])
+                        if (!isNaN(count)) {
+                            buttons[key].label.text = createName(key) + ": " + numberFormatter.format(count, '#,###.##');
+                        }
+                    }
+                    currentIndex = index;
                 }
             }
             
