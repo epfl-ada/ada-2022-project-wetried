@@ -806,15 +806,27 @@
                 var max = 0;
                 var name = ev.target.dataItem.dataContext.name;
 
-                console.log(ev.target.dataItem.dataContext)
-
-                if (series[key].visible) {
-                    if (min > totalMin[key]) {
-                        min = totalMin[key];
+                if (!series[name].visible) {
+                    if (min > totalMin[name]) {
+                        min = totalMin[name];
                     }
                     
-                    if (max < totalMax[key]) {
-                        max = totalMax[key];
+                    if (max < totalMax[name]) {
+                        max = totalMax[name];
+                    }
+                }
+
+                for (key in series) {
+                    if (key != name) {
+                        if (series[key].visible) {
+                            if (min > totalMin[key]) {
+                                min = totalMin[key];
+                            }
+                            
+                            if (max < totalMax[key]) {
+                                max = totalMax[key];
+                            }
+                        }
                     }
                 }
                 
