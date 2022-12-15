@@ -804,18 +804,20 @@
             lineChart.legend.itemContainers.template.events.on("hit", function(ev) {
                 var min = Number.MAX_SAFE_INTEGER;
                 var max = 0;
+                var name = ev.target.dataItem.dataContext.name;
 
-                for (var key in series) {                    
-                    if (series[key].visible) {
-                        if (min > totalMin[key]) {
-                            min = totalMin[key];
-                        }
-                        
-                        if (max < totalMax[key]) {
-                            max = totalMax[key];
-                        }
+                console.log(ev.target.dataItem.dataContext)
+
+                if (series[key].visible) {
+                    if (min > totalMin[key]) {
+                        min = totalMin[key];
+                    }
+                    
+                    if (max < totalMax[key]) {
+                        max = totalMax[key];
                     }
                 }
+                
 
                 valueAxis.min = min;
                 valueAxis.max = max;
