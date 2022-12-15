@@ -1073,10 +1073,12 @@
 
                 if (name == "confirmed") {
                     valueAxis.min = 0;
-                    valueAxis.max = 100;
+                    valueAxis.max = 200;
                     valueAxis.strictMinMax = true; 
                 } else {
-                    valueAxis.strictMinMax = false;
+                    valueAxis.min = 40000;
+                    valueAxis.max = 50000;
+                    valueAxis.strictMinMax = true;
                 }
 
                 // hide other series
