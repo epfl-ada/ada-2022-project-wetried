@@ -803,57 +803,6 @@
             })
             
             
-            var seriesTypeSwitch = lineChart.legend.createChild(am4core.SwitchButton);
-            seriesTypeSwitch.leftLabel.text = "totals";
-            seriesTypeSwitch.rightLabel.text = "day change"
-            seriesTypeSwitch.leftLabel.fill = am4core.color("#ffffff");
-            seriesTypeSwitch.rightLabel.fill = am4core.color("#ffffff");
-            
-            seriesTypeSwitch.events.on("down", function() {
-                legendDown = true;
-            })
-            seriesTypeSwitch.events.on("up", function() {
-                setTimeout(function() {
-                legendDown = false;
-                }, 100)
-            })
-            
-            seriesTypeSwitch.events.on("toggled", function() {
-                if (seriesTypeSwitch.isActive) {
-                if (!columnSeries) {
-                    createColumnSeries();
-                }
-            
-                valueAxis.max = undefined;
-                valueAxis.min = undefined;
-
-                for (var key in columnSeries) {
-                    columnSeries[key].hide(0);
-                }
-            
-                for (var key in series) {
-                    series[key].hiddenInLegend = true;
-                    series[key].hide();
-                }
-            
-                columnSeries[currentType].show();
-                }
-                else {
-                for (var key in columnSeries) {
-                    columnSeries[key].hiddenInLegend = true;
-                    columnSeries[key].hide();
-                }
-            
-                for (var key in series) {
-                    series[key].hiddenInLegend = false;
-                    series[key].hide();
-                }
-            
-                series[currentType].show();
-            
-                }
-            })
-            
             function updateColumnsFill() {
                 columnSeries.active.columns.each(function(column) {
                 if (column.dataItem.values.valueY.previousChange < 0) {
@@ -972,17 +921,6 @@
             })
             
             
-            // data warning label
-            var label = lineChart.plotContainer.createChild(am4core.Label);
-            label.text = "Current day stats may be incomplete until countries submit their data.";
-            label.fill = am4core.color("#ffffff");
-            label.fontSize = "0.8em";
-            label.paddingBottom = 4;
-            label.opacity = 0.5;
-            label.align = "right";
-            label.horizontalCenter = "right";
-            label.verticalCenter = "bottom";
-            
             // BUTTONS
             // create buttons
             var airpolButton = addButton("airpol", airpolColor);
@@ -1077,17 +1015,6 @@
                 lineChart.cursor.lineX.stroke = colors[name];
             
                 // show series
-                if (seriesTypeSwitch.isActive) {
-                var activeSeries = columnSeries[name];
-                activeSeries.show();
-                // hide other series
-                for (var key in columnSeries) {
-                    if (columnSeries[key] != activeSeries) {
-                    columnSeries[key].hide();
-                    }
-                }
-                }
-                else {
                 var activeSeries = series[name];
                 activeSeries.show();
 
@@ -1100,7 +1027,7 @@
                     series[key].hide();
                     }
                 }
-                }
+                
             
                 // update heat rule's maxValue
                 bubbleSeries.heatRules.getIndex(0).maxValue = max[currentType];
