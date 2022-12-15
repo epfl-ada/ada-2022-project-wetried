@@ -485,7 +485,7 @@
             // top title
             var title = mapChart.titles.create();
             title.fontSize = "1.5em";
-            title.text = "COVID-19 Spread Data";
+            title.text = "";
             title.align = "left";
             title.horizontalCenter = "left";
             title.marginLeft = 20;
@@ -824,6 +824,9 @@
                     createColumnSeries();
                 }
             
+                valueAxis.max = undefined;
+                valueAxis.min = undefined;
+
                 for (var key in columnSeries) {
                     columnSeries[key].hide(0);
                 }
@@ -1090,7 +1093,6 @@
 
                 valueAxis.min = totalMin[name];
                 valueAxis.max = totalMax[name];
-                //valueAxis.strictMinMax = true; 
 
                 // hide other series
                 for (var key in series) {
