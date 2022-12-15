@@ -239,7 +239,6 @@
             
             
             var max = { confirmed: 0, recovered: 0, deaths: 0 };
-            var min = { confirmed: 0, recovered: 0, deaths: 0 };
             var maxPC = { confirmed: 0, recovered: 0, deaths: 0};
             
             // the last day will have most
@@ -256,16 +255,34 @@
                 if (di.deaths > max.deaths) {
                     max.deaths = di.deaths
                 }
+            }
+
+            var totalMax = { confirmed: 0, recovered: 0, deaths: 0 };
+            var totalMin = { confirmed: Number.MAX_SAFE_INTEGER, recovered: Number.MAX_SAFE_INTEGER, deaths: Number.MAX_SAFE_INTEGER };
+
+            for (var i = 0; i < line_data.length; i++) {
+                var di = line_data[i];
+
+                // max
+                if (di.confirmed > totalMax.confirmed) {
+                    totalMax.confirmed = di.confirmed;
+                }
+                if (di.recovered > totalMax.recovered) {
+                    totalMax.recovered = di.recovered;
+                }
+                if (di.deaths > totalMax.deaths) {
+                    totalMax.deaths = di.deaths
+                }
 
                 // min
-                if (di.confirmed < max.confirmed) {
-                    min.confirmed = di.confirmed;
+                if (di.confirmed < totalMin.confirmed) {
+                    totalMin.confirmed = di.confirmed;
                 }
-                if (di.recovered < max.recovered) {
-                    min.recovered = di.recovered;
+                if (di.recovered < totalMin.recovered) {
+                    totalMin.recovered = di.recovered;
                 }
-                if (di.deaths < max.deaths) {
-                    min.deaths = di.deaths
+                if (di.deaths < totalMin.deaths) {
+                    totalMin.deaths = di.deaths
                 }
             }
             
@@ -1085,8 +1102,8 @@
                 var activeSeries = series[name];
                 activeSeries.show();
 
-                valueAxis.min = min[name];
-                valueAxis.max = max[name];
+                valueAxis.min = totalMin[name];
+                valueAxis.max = totalMax[name];
                 valueAxis.strictMinMax = true; 
 
                 // hide other series
