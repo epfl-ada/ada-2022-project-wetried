@@ -733,10 +733,6 @@
             valueAxis.renderer.baseGrid.disabled = true;
             valueAxis.tooltip.disabled = true;
             //valueAxis.extraMax = 0;
-            
-            valueAxis.min = 500;
-            valueAxis.max = 1500;
-            valueAxis.strictMinMax = true; 
 
             valueAxis.maxPrecision = 0;
             valueAxis.renderer.inside = true;
@@ -1074,6 +1070,15 @@
                 else {
                 var activeSeries = series[name];
                 activeSeries.show();
+
+                if (name == "confirmed") {
+                    valueAxis.min = 0;
+                    valueAxis.max = 100;
+                    valueAxis.strictMinMax = true; 
+                } else {
+                    valueAxis.strictMinMax = false;
+                }
+
                 // hide other series
                 for (var key in series) {
                     if (series[key] != activeSeries) {
