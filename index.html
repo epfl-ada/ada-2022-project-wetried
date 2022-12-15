@@ -799,24 +799,11 @@
             lineChart.legend.itemContainers.template.events.on("up", function() {
                 setTimeout(function() {
                 legendDown = false;
-                valueAxis.min = undefined;
-                valueAxis.max = undefined;
                 }, 100)
             })
-            
-            
-            function updateColumnsFill() {
-                columnSeries.active.columns.each(function(column) {
-                if (column.dataItem.values.valueY.previousChange < 0) {
-                    column.fillOpacity = 0;
-                    column.strokeOpacity = 0.6;
-                }
-                else {
-                    column.fillOpacity = 0.6;
-                    column.strokeOpacity = 0;
-                }
-                })
-            }
+            lineChart.legend.itemContainers.template.events.on("hit", function(ev) {
+                console.log("Clicked on", ev.target);
+            })
             
             
             // create series
