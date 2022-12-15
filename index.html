@@ -1057,6 +1057,31 @@
                 image.isHover = false;
                 }
             }
+
+            function setCountryData(countryIndex) {
+                // instead of setting whole data array, we modify current raw data so that a nice animation would happen
+                for (var i = 0; i < lineChart.data.length; i++) {
+                    var di = graph_data[i].list;
+
+                    var countryData = di[countryIndex];
+                    var dataContext = lineChart.data[i];
+                    if (countryData) {
+                        dataContext.airpol = countryData.airpol;
+                        dataContext.envviews = countryData.envviews;
+                        valueAxis.min = undefined;
+                        valueAxis.max = undefined;
+                    } else {
+                        dataContext.recovered = 0;
+                        dataContext.deaths = 0;
+                        valueAxis.min = 0;
+                        valueAxis.max = 10;
+                    }
+                }
+
+                lineChart.invalidateRawData();
+                updateTotals(currentIndex);
+                setTimeout(updateSeriesTooltip, 1000);
+            }
             
             // rotate and zoom
             function rotateAndZoom(mapPolygon) {
