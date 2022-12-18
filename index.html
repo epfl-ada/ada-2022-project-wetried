@@ -769,6 +769,21 @@
             valueAxis.renderer.labels.template.verticalCenter = "bottom";
             valueAxis.renderer.labels.template.fill = am4core.color("#ffffff");
             valueAxis.renderer.labels.template.padding(2, 2, 2, 2);
+
+            valueAxis.adapter.add("max", function(max, target) {
+                if (max < 5) {
+                    max = 5
+                }
+                return max;
+            })
+
+            valueAxis.adapter.add("min", function(min, target) {
+                if (min < 0) {
+                    min = 0;
+                }
+                
+                return min;
+            })
             
             // cursor
             // https://www.amcharts.com/docs/v4/concepts/chart-cursor/
@@ -1211,15 +1226,15 @@
                         polygon.dataItem.dataContext.globalviewsPC = di.globalviews / population * 1000000;
                 
                         if (population > 100000) {
-                        if (polygon.dataItem.dataContext.airpolPC > maxPC.airpol) {
-                            maxPC.airpol = polygon.dataItem.dataContext.airpolPC;
-                        }
-                        if (polygon.dataItem.dataContext.envviewsPC > maxPC.envviews) {
-                            maxPC.envviews = polygon.dataItem.dataContext.envviewsPC;
-                        }
-                        if (polygon.dataItem.dataContext.globalviewsPC > maxPC.globalviews) {
-                            maxPC.globalviews = polygon.dataItem.dataContext.globalviewsPC;
-                        }
+                            if (polygon.dataItem.dataContext.airpolPC > maxPC.airpol) {
+                                maxPC.airpol = polygon.dataItem.dataContext.airpolPC;
+                            }
+                            if (polygon.dataItem.dataContext.envviewsPC > maxPC.envviews) {
+                                maxPC.envviews = polygon.dataItem.dataContext.envviewsPC;
+                            }
+                            if (polygon.dataItem.dataContext.globalviewsPC > maxPC.globalviews) {
+                                maxPC.globalviews = polygon.dataItem.dataContext.globalviewsPC;
+                            }
                         }
                     }
                 
