@@ -999,7 +999,7 @@
                 var activeSeries = series[name];
                 activeSeries.show();
 
-                if (!countryData) {
+                if (countryData == undefined || !countryData) {
                     valueAxis.min = totalMin[name];
                     valueAxis.max = totalMax[name];
                 }
