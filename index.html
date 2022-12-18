@@ -664,16 +664,16 @@
             filterSlider.events.on("rangechanged", function() {
                 var maxValue = max[currentType] * filterSlider.start + 1;
                 if (!isNaN(maxValue) && bubbleSeries.inited) {
-                bubbleSeries.heatRules.getIndex(0).maxValue = maxValue;
-                circle.clones.each(function(clone) {
-                    if (clone.dataItem.value > maxValue) {
-                    clone.dataItem.hide();
-                    }
-                    else {
-                    clone.dataItem.show();
-                    }
-                    clone.radius = clone.radius;
-                })
+                    bubbleSeries.heatRules.getIndex(0).maxValue = maxValue;
+                    circle.clones.each(function(clone) {
+                        if (clone.dataItem.value > maxValue) {
+                            clone.dataItem.hide();
+                        }
+                        else {
+                            clone.dataItem.show();
+                        }
+                        clone.radius = clone.radius;
+                    })
                 }
             })
             
@@ -770,21 +770,6 @@
             valueAxis.renderer.labels.template.fill = am4core.color("#ffffff");
             valueAxis.renderer.labels.template.padding(2, 2, 2, 2);
 
-            valueAxis.adapter.add("max", function(max, target) {
-                if (max < 5) {
-                    max = 5
-                }
-                return max;
-            })
-
-            valueAxis.adapter.add("min", function(min, target) {
-                if (min < 0) {
-                    min = 0;
-                }
-                
-                return min;
-            })
-            
             // cursor
             // https://www.amcharts.com/docs/v4/concepts/chart-cursor/
             lineChart.cursor = new am4charts.XYCursor();
