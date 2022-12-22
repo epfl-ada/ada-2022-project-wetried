@@ -139,7 +139,9 @@
 
         <main id="content" class="content" role="main">
             <article class="post">
-                <h1>Coronawiki</h1>
+                <h1>The evolution of awareness over time </h1>
+
+                <h2>CoronaWiki</h2>
 
                 <p>
                     To begin, we will consider the following: an increase in the visits to a given topic corresponds to an increase in awareness 
@@ -171,7 +173,7 @@
                     they are the most used (not feasible with English)
                 </p>
 
-                <h2>Difference in difference regression</h2>
+                <h3>Difference in difference regression</h3>
 
                 <p>
                     In order to be more precise, and to better determine the effects of lockdowns and mobility changes on environmental visits, we do what 
@@ -266,7 +268,7 @@
                     downward trend and the environment views have an increasing trend, and this might mean that during that time we have an attention shift towards the environment.   
                 </p>
 
-                <h2>Dynamic Time Warping</h2>
+                <h3>Dynamic Time Warping</h3>
 
                 <p>
                     Dynamic time warping (DTW) is a way to compare two usually temporal sequences that do not sync up perfectly. It is a method to calculate the optimal
@@ -291,7 +293,7 @@
                     and the total Wikipedia evolution for these languages are different.
                 </p>
 
-                <h2>Time lagged cross correlation</h2>
+                <h3>Time lagged cross correlation</h3>
 
                 <p>
                     Time lagged cross correlation is meant to add to the above analysis; it studies the correlation between the two time series by shifting one 
@@ -352,8 +354,8 @@
                     even at the top priority given its low rank.
                 </p>
 
-                <h1>The external datasets which we added by ourselves</h1>
-
+                <h2>Environment topic views extension</h2>
+                
                 <p>
                     After the results obtained using CoronaWiki, we started to think that the analysis of the environment could be improved by using a larger 
                     timeframe. Indeed, until now, we were only focusing on three years 2018 to 2020. By increasing this interval, we could get a better sense of the 
@@ -388,10 +390,10 @@
                 <p>
                     To analyze 
                     better, we needed data about the pollution itself, but also more up-to-date Wikipedia data (Coronawiki, again, stops at the end of 
-                    July 2020). This is the subject of the following part.
+                    July 2020).
                 </p>
                 
-                <h2>The air pollution dataset (WAQI)</h2>
+                <h1>Air pollution around the world</h1>
 
                 <p>
                     Let’s have a look at the other dataset which we imported : we study the air pollution from the World Air Quality Index (WAQI), 
@@ -453,7 +455,7 @@
                     This is what we will study next.
                 </p>
 
-                <h1>Wikipedia-based awareness versus empirical air quality</h1>
+                <h1>How is the awareness linked to air pollution?</h1>
 
                 <p>
                     The goal is to establish whether there is a link between awareness (i.e. Wikipedia views) and actual ground measurements about pollution. 
@@ -471,10 +473,6 @@
                         timeseries (say, pollution). This gives us a hint about the temporal relationship between two observations.
                     </li>
                 </ul>
-
-                <h2>
-                    Intervention analysis
-                </h2>
 
                 <p>Here's a few interesting results by themselves :</p>
 
@@ -600,11 +598,42 @@
 
                 <p>
                     We can conclude in the following way : For most countries, it holds that either the model predicts a higher pollution 
-                    than reality for 2022 or the country's emissions were already fairly low. This, in turn, suggests that humans were 
-                    indeed taught a lesson by Covid in terms of climate change.
+                    than reality for 2022 or the country's emissions were already fairly low. This suggests that, when looking only at 
+                    air pollution, it seems that humans were indeed taught a lesson by Covid in terms of climate change.
                 </p>
 
                 <h1>Conclusion</h1>
+
+                <p>
+                    If one looked only at the environment Wikipedia views, the image would be quite dark: people didn’t seem to 
+                    necessarily care more about that topic during the wave, as any increase, is strongly correlated to the overall 
+                    page views.
+                </p>
+
+                <p>
+                    If the topic was one of the most visited, that would be okay, but that’s not even the case, as a matter of fact, 
+                    it’s always at least in the 20 least visited topics. Not only that, but extending the Coronawiki data shows that 
+                    people visit the environment pages even less in 2021 and 2022. 
+                </p>
+
+                <p>
+                    However, the air pollution dataset enables us to argue that pollution indeed decreased overall during and after 
+                    the 2020 Covid wave. This is further supported by the SARIMA modeling, which typically predicts more pollution 
+                    for 2022 than actually happened.
+                </p>
+
+                <p>
+                    All in all, we seem to be heading into a <kbd>bad ending</kbd>. While it is true that the pollution is getting better over 
+                    time for now, the fact that awareness about the pollution decreases suggests that the decrease in pollution is 
+                    only temporary and not a global effort to tackle climate change. 
+                </p>
+
+                <p>
+                    That leaves the question of how to improve things. One may observe that awareness on Wikipedia has decreased
+                    while media attention is ever-growing about climate change issues. Then, we can only hope that this newly-formed 
+                    attention is beneficial to public knowledge about the issue and that it will lead to actual durable improvements 
+                    to the current situation.
+                </p>
 
             </article>
         </main>
@@ -613,7 +642,7 @@
         <!-- The tiny footer at the very bottom -->
         <footer class="site-footer clearfix">
           <section class="copyright"><a href="/ada-2022-project-wetried/">Has Covid taught humans a valuable climate lesson?</a> &copy; 2022</section>
-          <section class="poweredby">Proudly created by the weTried team</section>
+          <section class="poweredby">Proudly created by the weTried team. Images generated using <a href="https://www.midjourney.com/home/">MidJourney</a></section>
         </footer>
     </div>
 
