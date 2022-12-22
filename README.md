@@ -1,6 +1,6 @@
 # "Has Covid learned humans a valuable climate lesson?" by team weTried
 
-In this repository, we present a project proposal for the ADA course.
+In this repository, we present a project for the ADA course.
 
 
 ## Data Story
