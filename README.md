@@ -1,4 +1,4 @@
-# "Has Covid taught humans a valuable climate lesson?" by team weTried
+# "Has Covid learned humans a valuable climate lesson?" by team weTried
 
 In this repository, we present a project proposal for the ADA course.
 
@@ -62,7 +62,11 @@ Would we have a cleaner world? Would this have been possible/feasible? And if ye
 Step 1 : Analysis of awareness on wikipedia, using the Coronawiki dataset and other select pages, country by country
 - Plotting the evolution of environmental articles views, to see if interesting patterns/change of behavior can be seen around the beginning of Covid. The plots showed as a preliminary result that there was indeed a change for some countries, while others stayed at the same number of views.
 - Conduct T-tests to check if there is indeed a statistically significant change in awareness between 2019 and 2020 for the same period of time (January to July)
-- Leveraging Apple's and the Global mobility data, we conduct a regression analysis to see if we can properly fit the aggragated data using a hyper-plane. Results showed that indeed, a change in mobility appears to be a significant factor in how much people visit these Wikipedia pages accross countries
+- Leveraging Apple's and the Global mobility data, we conduct a first regression analysis to see if we can properly fit the aggragated data using a hyper-plane. Results showed that indeed, a change in mobility appears to be a significant factor in how much people visit these Wikipedia pages accross countries
+- Difference-in-difference regression, comparing data around mobility changes dates in 2019 and 2020, to see how the environment views evolve when considering a certain timeframe between 2019 (control) and 2020 (treatement)
+- Dynamic Time Warping (DTW), to see whether we can map environment views time series to the whole Wikipedia views time series for each language; it is a way to measure the distance between two time series. 
+- Conducted time lagged cross correlation, to see if a simple shift in time for one of the time series from the above analysis results makes it overlap with the other, and how much
+
 
 Step 2 : Analysis of actual change in behavior
 
@@ -113,7 +117,7 @@ A list of internal milestones up until project Milestone 3.
 <tbody>
   <tr>
     <td class="tg-0lax">@MRandl</td>
-    <td class="tg-0lax">Air pollution analysis and Data story writing</td>
+    <td class="tg-0lax">Air pollution analysis, Granger test, SARIMA prediction</td>
   </tr>
   <tr>
     <td class="tg-0lax">@MrZaiko</td>
@@ -121,11 +125,11 @@ A list of internal milestones up until project Milestone 3.
   </tr>
   <tr>
     <td class="tg-0lax">@AttiaYoussef</td>
-    <td class="tg-0lax">Coronawiki dataset exploration/wrangling and notebook formatting</td>
+    <td class="tg-0lax">Coronawiki dataset exploration/wrangling, regression analysis, difference-in-difference regression</td>
   </tr>
   <tr>
     <td class="tg-0lax">@TorgemanTarak</td>
-    <td class="tg-0lax">Plastic pollution analysis and data story writing</td>
+    <td class="tg-0lax">Plastic pollution analysis, DTW, time lagged cross correlation</td>
   </tr>
 </tbody>
 </table>
