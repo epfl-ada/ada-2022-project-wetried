@@ -1,7 +1,7 @@
 # "Has Covid learned humans a valuable climate lesson?" by team weTried
 
 In this repository, we present a project for the ADA course.
-
+The main notebook is the "ExplorationCorona.ipynb" one as it contains all analysis; the two others are just related to scraping new Wikipedia data.
 
 ## Data Story
 Here you can find the link to our Data Story, we hope you will enjoy:
@@ -104,6 +104,10 @@ Step 4 : Timeseries prediction
 * 22.12.22 Website done
 * 23.12.22 **Milestone 3**
 
+## External code
+
+We took a small snippet of code for the Difference-in-difference regression from the original Coronawiki Github repository:
+- https://github.com/epfl-dlab/wiki_pageviews_covid/
 
 ## Team Organization
 
