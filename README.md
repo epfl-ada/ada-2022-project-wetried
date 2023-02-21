@@ -1,4 +1,4 @@
-# "Has Covid learned humans a valuable climate lesson?" by team weTried
+# "Has Covid taught humans a valuable climate lesson?" by team weTried
 
 In this repository, we present a project for the ADA course.
 The main notebook is the "ExplorationCorona.ipynb" one as it contains all analysis; the two others are just related to scraping new Wikipedia data.
